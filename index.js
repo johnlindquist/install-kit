@@ -2,9 +2,11 @@
 
 import kit from "@johnlindquist/kit"
 import { createPathResolver } from "@johnlindquist/kit/core/utils"
-
+import { fileURLToPath } from "url"
 import * as path from "path"
 
-let currentDir = createPathResolver(path.dirname(new URL(import.meta.url).pathname))
+let thisDir = path.dirname(fileURLToPath(new URL(import.meta.url)))
+let currentDir = createPathResolver(thisDir)
+let scriptPath = currentDir("download-node.js")
 
-await kit(currentDir("download-node.js"))
+await kit(scriptPath)
