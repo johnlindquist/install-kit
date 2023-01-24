@@ -1,0 +1,43 @@
+name: Publish kit-bundles
+
+on:
+  push:
+    branches:
+      - main
+      - beta
+      - alpha
+    tags:
+      - "*"
+
+jobs:
+  release:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node-version: [16.17.1]
+
+    steps:
+      - name: Setup node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Checkout kit-bundles
+        uses: actions/checkout@master
+
+      - name: npm i
+        run: |
+          npm i
+
+      - name: build
+        run: |
+          npm run build
+
+      - name: Semantic Release
+        run: |
+          npx semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

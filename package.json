@@ -1,0 +1,40 @@
+{
+  "name": "@johnlindquist/install-kit",
+  "version": "0.0.0-development",
+  "type": "module",
+  "bin": {
+    "install-kit": "index.js"
+  },
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/johnlindquist/install-kit.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/johnlindquist/install-kit/issues"
+  },
+  "homepage": "https://github.com/johnlindquist/install-kit#readme",
+  "dependencies": {
+    "@johnlindquist/kit": "^0.39.12",
+    "download": "^8.0.0",
+    "node-stream-zip": "^1.15.0",
+    "tar": "^6.1.13"
+  },
+  "release": {
+    "branches": [
+      "+([0-9]).x",
+      "main"
+    ],
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/npm"
+    ]
+  }
+}
