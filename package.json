@@ -2,11 +2,11 @@
   "name": "@johnlindquist/install-kit",
   "version": "0.0.0-development",
   "type": "module",
-  "engines": {
-    "node": ">=16.17.1"
-  },
   "bin": {
     "install-kit": "index.js"
+  },
+  "engines": {
+    "node": ">=16.17.1"
   },
   "description": "",
   "main": "index.js",
@@ -39,5 +39,8 @@
       "@semantic-release/commit-analyzer",
       "@semantic-release/npm"
     ]
+  },
+  "devDependencies": {
+    "semantic-release": "^19.0.5"
   }
 }
