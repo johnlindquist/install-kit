@@ -39,3 +39,7 @@ if (process.platform === "win32") {
     strip: 1,
   })
 }
+
+console.log(`Removing ${file}`)
+
+await rm(file)
