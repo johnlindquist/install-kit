@@ -1,6 +1,9 @@
 {
   "name": "@johnlindquist/install-kit",
   "version": "0.0.0-development",
+  "publishConfig": {
+    "access": "public"
+  },
   "type": "module",
   "bin": {
     "install-kit": "index.js"
@@ -40,7 +43,7 @@
       "@semantic-release/npm"
     ]
   },
-  "devDependencies": {
-    "semantic-release": "^19.0.5"
+  "volta": {
+    "node": "16.17.1"
   }
 }
