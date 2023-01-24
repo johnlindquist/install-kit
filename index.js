@@ -4,9 +4,7 @@ import kit from "@johnlindquist/kit"
 import { createPathResolver } from "@johnlindquist/kit/core/utils"
 
 import * as path from "path"
-const currentScriptUrl = import.meta.url
-const currentScriptPath = path.dirname(currentScriptUrl.replace("file://", ""))
 
-let currentDir = createPathResolver(currentScriptPath)
+let currentDir = createPathResolver(path.dirname(new URL(import.meta.url).pathname))
 
 await kit(currentDir("download-node.js"))
