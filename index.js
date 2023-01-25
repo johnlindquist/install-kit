@@ -1,12 +1,17 @@
 #! /usr/bin/env node
 
+import { get } from "@johnlindquist/globals"
 import kit from "@johnlindquist/kit"
 import { createPathResolver } from "@johnlindquist/kit/core/utils"
 import { fileURLToPath } from "url"
 import * as path from "path"
 
 process.env.NODE_VERSION ||= "16.17.1"
-process.env.KIT_APP_VERSION ||= "1.40.62"
+process.env.KIT_APP_VERSION ||= await get(`https://api.github.com/repos/johnlindquist/kitapp/releases/latest`).then(
+  res => res.data.tag_name.replace("v", "")
+)
+
+console.log(`Setting up Kit SDK for Kit app version: ${process.env.KIT_APP_VERSION}`)
 
 let scriptParentPath = createPathResolver(path.dirname(fileURLToPath(new URL(import.meta.url))))
 

@@ -19,6 +19,7 @@ let osTmpPath = createPathResolver(os.tmpdir())
 // Mac arm64: https://github.com/johnlindquist/kitapp/releases/download/v1.40.62/Kit-SDK-macOS-1.40.62-arm64.tar.gz
 // Linux x64: https://github.com/johnlindquist/kitapp/releases/download/v1.40.62/Kit-SDK-Linux-1.40.62-x64.tar.gz
 // Windows x64: https://github.com/johnlindquist/kitapp/releases/download/v1.40.62/Kit-SDK-Windows-1.40.62-x64.tar.gz
+// Mac arm64: https://github.com/johnlindquist/kitapp/releases/download/v1.40.62/Kit-SDK-macOS-1.40.62-arm64.tar.gz
 
 let version = process.env.KIT_APP_VERSION || "1.40.62"
 let extension = "tar.gz"
