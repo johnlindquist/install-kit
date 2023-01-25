@@ -5,8 +5,7 @@ import { createPathResolver } from "@johnlindquist/kit/core/utils"
 import { fileURLToPath } from "url"
 import * as path from "path"
 
-let thisDir = path.dirname(fileURLToPath(new URL(import.meta.url)))
-let currentDir = createPathResolver(thisDir)
-let scriptPath = currentDir("download-node.js")
+let scriptParentPath = createPathResolver(path.dirname(fileURLToPath(new URL(import.meta.url))))
 
-await kit(scriptPath)
+await kit(scriptParentPath("download-node.js"))
+await kit(scriptParentPath("download-kenv.js"))
