@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/johnlindquist/install-kit#readme",
   "dependencies": {
-    "@johnlindquist/kit": "^0.39.12",
+    "@johnlindquist/kit": "0.39.14",
     "download": "^8.0.0",
     "node-stream-zip": "^1.15.0",
     "tar": "^6.1.13"
