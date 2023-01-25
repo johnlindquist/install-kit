@@ -1,9 +1,9 @@
 import os from "os"
-import { createPathResolver, knodePath } from "@johnlindquist/kit/core/utils"
 import tar from "tar"
 import StreamZip from "node-stream-zip"
 import { rm } from "fs/promises"
 
+let knodePath = createPathResolver(home(".knode"))
 // cleanup any existing knode directory
 if (await isDir(knodePath())) {
   await rm(knodePath(), {
