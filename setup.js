@@ -1,5 +1,5 @@
-let kitPath = createPathResolver(home(".kit"))
-let kenvPath = createPathResolver(home(".kenv"))
+let kitPath = createPathResolver(process.env.KIT || home(".kit"))
+let kenvPath = createPathResolver(process.env.KENV || home(".kenv"))
 
 console.log(`Set KIT and KENV to ${kitPath()} and ${kenvPath()}`)
 

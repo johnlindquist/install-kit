@@ -1,5 +1,5 @@
 import kit from "@johnlindquist/kit"
-import { createPathResolver } from "@johnlindquist/kit/core/utils"
+import { createPathResolver, kitPath, kenvPath } from "@johnlindquist/kit/core/utils"
 import { fileURLToPath } from "url"
 import * as path from "path"
 

@@ -2,7 +2,7 @@ import os from "os"
 import StreamZip from "node-stream-zip"
 import { rm } from "fs/promises"
 
-let kenvPath = createPathResolver(home(".kenv"))
+let kenvPath = createPathResolver(process.env.KENV || home(".kenv"))
 
 // cleanup any existing knode directory
 if (await isDir(kenvPath())) {

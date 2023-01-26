@@ -3,7 +3,7 @@ import tar from "tar"
 import StreamZip from "node-stream-zip"
 import { rm } from "fs/promises"
 
-let knodePath = createPathResolver(home(".knode"))
+let knodePath = createPathResolver(process.env.KNODE || home(".knode"))
 // cleanup any existing knode directory
 if (await isDir(knodePath())) {
   await rm(knodePath(), {
