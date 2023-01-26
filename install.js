@@ -5,6 +5,7 @@ import kit from "@johnlindquist/kit"
 import { createPathResolver } from "@johnlindquist/kit/core/utils"
 import { fileURLToPath } from "url"
 import * as path from "path"
+import * as fs from "fs/promises"
 
 process.env.NODE_VERSION ||= "16.17.1"
 process.env.KIT_APP_VERSION ||= await get(`https://api.github.com/repos/johnlindquist/kitapp/releases/latest`).then(
@@ -12,9 +13,9 @@ process.env.KIT_APP_VERSION ||= await get(`https://api.github.com/repos/johnlind
 )
 
 // read package.json to get version
-let packageJSON = await import("./package.json")
+let pkg = await readFile(new URL("./package.json", import.meta.url), "utf-8").then(res => JSON.parse(res))
 
-console.log(`Using @johnlindquist/install-kit version: ${packageJSON.version}`)
+console.log(`Using @johnlindquist/install-kit version: ${pkg.version}`)
 console.log(
   `Setting up Kit SDK for Kit app version: ${process.env.KIT_APP_VERSION} using Node version: ${process.env.NODE_VERSION}`
 )
