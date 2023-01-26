@@ -5,6 +5,7 @@
     "access": "public"
   },
   "type": "module",
+  "types": "index.d.ts",
   "bin": {
     "install-kit": "install.js"
   },
