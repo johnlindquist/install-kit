@@ -6,7 +6,7 @@
   },
   "type": "module",
   "bin": {
-    "install-kit": "index.js"
+    "install-kit": "install.js"
   },
   "engines": {
     "node": ">=16.17.1"
