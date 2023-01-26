@@ -17,16 +17,16 @@ console.log(`Setting up Kit SDK for Kit app version: ${process.env.KIT_APP_VERSI
 
 let scriptParentPath = createPathResolver(path.dirname(fileURLToPath(new URL(import.meta.url))))
 
+export let downloadNode = async () => {
+  await kit(scriptParentPath("download-kit.js"))
+}
+
 export let downloadKit = async () => {
   await kit(scriptParentPath("download-node.js"))
 }
 
 export let downloadKenv = async () => {
   await kit(scriptParentPath("download-kenv.js"))
-}
-
-export let downloadNode = async () => {
-  await kit(scriptParentPath("download-kit.js"))
 }
 
 export let installEsbuild = async () => {

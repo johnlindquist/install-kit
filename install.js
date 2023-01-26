@@ -11,18 +11,24 @@ process.env.KIT_APP_VERSION ||= await get(`https://api.github.com/repos/johnlind
   res => res.data.tag_name.replace("v", "")
 )
 
-console.log(`Setting up Kit SDK for Kit app version: ${process.env.KIT_APP_VERSION}`)
+// read package.json to get version
+let packageJSON = await import("./package.json")
+
+console.log(`Using @johnlindquist/install-kit version: ${packageJSON.version}`)
+console.log(
+  `Setting up Kit SDK for Kit app version: ${process.env.KIT_APP_VERSION} using Node version: ${process.env.NODE_VERSION}`
+)
 
 let scriptParentPath = createPathResolver(path.dirname(fileURLToPath(new URL(import.meta.url))))
 
 console.log(`\n\n---- Installing Node ----`)
 await kit(scriptParentPath("download-node.js"))
 
-console.log(`\n\n---- Installing Kenv ----`)
-await kit(scriptParentPath("download-kenv.js"))
-
 console.log(`\n\n---- Installing Kit ----`)
 await kit(scriptParentPath("download-kit.js"))
+
+console.log(`\n\n---- Installing Kenv ----`)
+await kit(scriptParentPath("download-kenv.js"))
 
 console.log(`\n\n---- Installing esbuild ----`)
 await kit(scriptParentPath("install-esbuild.js"))
