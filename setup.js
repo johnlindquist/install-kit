@@ -22,7 +22,15 @@ await kit.writeJson(kitPath("db", "app.json"), {
 })
 
 console.log(`\n\n---- Examples ----`)
-await kit(kitPath("setup", "clone-examples.js"))
+try {
+  await kit(kitPath("setup", "clone-examples.js"))
+} catch (error) {
+  console.log(error)
+}
 
 console.log(`\n\n---- Sponsors ----`)
-await kit(kitPath("setup", "clone-sponsors.js"))
+try {
+  await kit(kitPath("setup", "clone-sponsors.js"))
+} catch (error) {
+  console.log(error)
+}

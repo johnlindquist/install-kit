@@ -5,7 +5,6 @@ import kit from "@johnlindquist/kit"
 import { createPathResolver } from "@johnlindquist/kit/core/utils"
 import { fileURLToPath } from "url"
 import * as path from "path"
-import * as fs from "fs/promises"
 
 process.env.NODE_VERSION ||= "16.17.1"
 process.env.KIT_APP_VERSION ||= await get(`https://api.github.com/repos/johnlindquist/kitapp/releases/latest`).then(
