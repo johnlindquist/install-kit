@@ -34,6 +34,9 @@ let info = electronReleases.find(release => release.version === electronVersion)
 
 process.env.NODE_VERSION ||= info.node
 process.env.KIT_APP_VERSION ||= tag.replace("v", "")
+let home = createPathResolver(os.homedir())
+process.env.KIT ||= home(".kit")
+process.env.KENV ||= home(".kenv")
 
 // read package.json to get version
 let pkg = await readFile(new URL("./package.json", import.meta.url), "utf-8").then(res => JSON.parse(res))
