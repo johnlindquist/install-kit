@@ -7,17 +7,11 @@ import { createPathResolver } from "@johnlindquist/kit/core/utils"
 import { fileURLToPath } from "url"
 import * as path from "path"
 
-let home = createPathResolver(os.homedir())
-
 console.log(`Checking if any relevant environment variables are set...`, {
   KIT: process.env.KIT,
   KENV: process.env.KENV,
   KIT_APP_VERSION: process.env.KIT_APP_VERSION,
   NODE_VERSION: process.env.NODE_VERSION,
-  HOME: home(),
-  kitPath: home(".kit"),
-  kenvPath: home(".kenv"),
-  knodePath: home(".knode"),
 })
 
 let kitappRepoLatestUrl = `https://github.com/johnlindquist/kitapp/releases/latest`

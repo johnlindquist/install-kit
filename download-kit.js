@@ -4,11 +4,11 @@ import { rm } from "fs/promises"
 
 let home = createPathResolver(os.homedir())
 process.env.KIT ||= home(".kit")
-let kitPath = createPathResolver(process.env.KIT)
+let kitTargetPath = createPathResolver(process.env.KIT)
 
 // cleanup any existing .kit directory
-if (await isDir(kitPath())) {
-  await rm(kitPath(), {
+if (await isDir(kitTargetPath())) {
+  await rm(kitTargetPath(), {
     recursive: true,
     force: true,
   })
@@ -45,13 +45,13 @@ let buffer = await download(url)
 console.log(`Writing node to ${file}`)
 await writeFile(file, buffer)
 
-console.log(`Ensuring ${kitPath()} exists`)
-await ensureDir(kitPath())
+console.log(`Ensuring ${kitTargetPath()} exists`)
+await ensureDir(kitTargetPath())
 
-console.log(`Beginning extraction to ${kitPath()}`)
+console.log(`Beginning extraction to ${kitTargetPath()}`)
 await tar.x({
   file,
-  C: kitPath(),
+  C: kitTargetPath(),
   strip: 1,
 })
 
