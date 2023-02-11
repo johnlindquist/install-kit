@@ -22,7 +22,7 @@ if (await isDir(kenvPath())) {
   console.log(`Downloading node from ${url}`)
   let buffer = await download(url)
 
-  console.log(`Writing node to ${file}`)
+  console.log(`Writing kenv to ${file}`)
   await writeFile(file, buffer)
 
   const zip = new StreamZip.async({ file })

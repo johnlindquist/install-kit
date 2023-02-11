@@ -6,6 +6,10 @@ let home = createPathResolver(os.homedir())
 process.env.KIT ||= home(".kit")
 let kitTargetPath = createPathResolver(process.env.KIT)
 
+console.log(`\n\n Home detected as ${home()}`)
+console.log(`KIT detected as ${process.env.KIT}`)
+console.log(`\n kitTargetPath: ${kitTargetPath()}`)
+
 // cleanup any existing .kit directory
 if (await isDir(kitTargetPath())) {
   await rm(kitTargetPath(), {
@@ -42,7 +46,7 @@ let url = `https://github.com/johnlindquist/kitapp/releases/latest/download/${ki
 console.log(`Downloading Kit SDK from ${url}`)
 let buffer = await download(url)
 
-console.log(`Writing node to ${file}`)
+console.log(`Writing kit to ${file}`)
 await writeFile(file, buffer)
 
 console.log(`Ensuring ${kitTargetPath()} exists`)
