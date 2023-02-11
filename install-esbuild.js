@@ -1,3 +1,7 @@
+import os from "os"
+
+let home = createPathResolver(os.homedir())
+
 process.env.KIT ||= home(".kit")
 process.env.KENV ||= home(".kenv")
 

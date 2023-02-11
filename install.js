@@ -11,6 +11,10 @@ console.log(`Checking if any relevant environment variables are set...`, {
   KENV: process.env.KENV,
   KIT_APP_VERSION: process.env.KIT_APP_VERSION,
   NODE_VERSION: process.env.NODE_VERSION,
+  HOME: home(),
+  kitPath: home(".kit"),
+  kenvPath: home(".kenv"),
+  knodePath: home(".knode"),
 })
 
 let kitappRepoLatestUrl = `https://github.com/johnlindquist/kitapp/releases/latest`
