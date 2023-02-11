@@ -1,10 +1,13 @@
 #! /usr/bin/env node
 
+import os from "os"
 import { get } from "@johnlindquist/globals"
 import kit from "@johnlindquist/kit"
 import { createPathResolver } from "@johnlindquist/kit/core/utils"
 import { fileURLToPath } from "url"
 import * as path from "path"
+
+let home = createPathResolver(os.homedir())
 
 console.log(`Checking if any relevant environment variables are set...`, {
   KIT: process.env.KIT,
