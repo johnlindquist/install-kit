@@ -2,7 +2,7 @@ import os from "os"
 import tar from "tar"
 import { rm } from "fs/promises"
 
-process.env.KIT ||= home(".kit"))
+process.env.KIT ||= home(".kit")
 let kitPath = createPathResolver(process.env.KIT)
 
 // cleanup any existing .kit directory

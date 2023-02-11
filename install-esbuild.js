@@ -1,5 +1,5 @@
-process.env.KIT ||= home(".kit"))
-process.env.KENV ||= home(".kenv"))
+process.env.KIT ||= home(".kit")
+process.env.KENV ||= home(".kenv")
 
 let kitPath = createPathResolver(process.env.KIT)
 let kenvPath = createPathResolver(process.env.KENV)
