@@ -21,7 +21,16 @@ let osTmpPath = createPathResolver(os.tmpdir())
 // Windows x64: https://github.com/johnlindquist/kitapp/releases/download/v1.40.62/Kit-SDK-Windows-1.40.62-x64.tar.gz
 // Mac arm64: https://github.com/johnlindquist/kitapp/releases/download/v1.40.62/Kit-SDK-macOS-1.40.62-arm64.tar.gz
 
-let version = process.env.KIT_APP_VERSION || "1.40.62"
+let getTag = async () => {
+  let kitappRepoLatestUrl = `https://github.com/johnlindquist/kitapp/releases/latest`
+  let githubLatestResponse = await get(kitappRepoLatestUrl)
+  let resolvedUrl = githubLatestResponse.request.path
+  let tag = resolvedUrl.split("/").at(-1)
+
+  return tag.replace("v", "")
+}
+
+let version = process.env.KIT_APP_VERSION || (await getTag())
 let extension = "tar.gz"
 let platform = process.platform === "win32" ? "Windows" : process.platform === "linux" ? "Linux" : "macOS"
 let kitSDK = `Kit-SDK-${platform}-${version}-${process.arch}.${extension}`

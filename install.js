@@ -6,10 +6,26 @@ import { createPathResolver } from "@johnlindquist/kit/core/utils"
 import { fileURLToPath } from "url"
 import * as path from "path"
 
-process.env.NODE_VERSION ||= "16.17.1"
-process.env.KIT_APP_VERSION ||= await get(`https://api.github.com/repos/johnlindquist/kitapp/releases/latest`).then(
-  res => res.data.tag_name.replace("v", "")
-)
+let kitappRepoLatestUrl = `https://github.com/johnlindquist/kitapp/releases/latest`
+let githubLatestResponse = await get(kitappRepoLatestUrl)
+let resolvedUrl = githubLatestResponse.request.path
+let tag = resolvedUrl.split("/").at(-1)
+
+let rawPackageJsonUrl = `https://raw.githubusercontent.com/johnlindquist/kitapp/${tag}/package.json`
+
+let packageJsonResponse = await get(rawPackageJsonUrl)
+let packageJson = packageJsonResponse.data
+
+let electronVersion = packageJson.devDependencies.electron
+
+let electronReleasesUrl = `https://releases.electronjs.org/releases.json`
+let electronReleasesResponse = await get(electronReleasesUrl)
+let electronReleases = electronReleasesResponse.data
+
+let info = electronReleases.find(release => release.version === electronVersion)
+
+process.env.NODE_VERSION ||= info.node
+process.env.KIT_APP_VERSION ||= tag.replace("v", "")
 
 // read package.json to get version
 let pkg = await readFile(new URL("./package.json", import.meta.url), "utf-8").then(res => JSON.parse(res))

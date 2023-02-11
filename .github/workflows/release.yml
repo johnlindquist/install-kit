@@ -16,7 +16,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node-version: [16.17.1]
+        node-version: [18.12.1]
 
     steps:
       - name: Setup node.js

@@ -14,14 +14,36 @@ if (await isDir(knodePath())) {
 
 let osTmpPath = createPathResolver(os.tmpdir())
 
-let version = `16.17.1`
+let getInfo = async () => {
+  let kitappRepoLatestUrl = `https://github.com/johnlindquist/kitapp/releases/latest`
+  let githubLatestResponse = await get(kitappRepoLatestUrl)
+  let resolvedUrl = githubLatestResponse.request.path
+  let tag = resolvedUrl.split("/").at(-1)
+
+  let rawPackageJsonUrl = `https://raw.githubusercontent.com/johnlindquist/kitapp/${tag}/package.json`
+
+  let packageJsonResponse = await get(rawPackageJsonUrl)
+  let packageJson = packageJsonResponse.data
+
+  let electronVersion = packageJson.devDependencies.electron
+
+  let electronReleasesUrl = `https://releases.electronjs.org/releases.json`
+  let electronReleasesResponse = await get(electronReleasesUrl)
+  let electronReleases = electronReleasesResponse.data
+
+  let info = electronReleases.find(release => release.version === electronVersion)
+
+  return info
+}
+
+let version = process.env.NODE_VERSION || (await getInfo()).node
 let extension = process.platform === "win32" ? "zip" : "tar.gz"
 
 // download node v16.7.1 based on the current platform and architecture
 // Examples:
-// Mac arm64: https://nodejs.org/dist/v16.17.1/node-v16.17.1-darwin-arm64.tar.gz
-// Linux x64: https://nodejs.org/dist/v16.17.1/node-v16.17.1-linux-x64.tar.gz
-// Windows x64: https://nodejs.org/dist/v16.17.1/node-v16.17.1-win-x64.zip
+// Mac arm64: https://nodejs.org/dist/v18.12.1/node-v18.12.1-darwin-arm64.tar.gz
+// Linux x64: https://nodejs.org/dist/v18.12.1/node-v18.12.1-linux-x64.tar.gz
+// Windows x64: https://nodejs.org/dist/v18.12.1/node-v18.12.1-win-x64.zip
 
 // Node dist url uses "win", not "win32"
 let platform = process.platform === "win32" ? "win" : process.platform
@@ -45,7 +67,7 @@ if (platform === "win") {
 
   let fileName = path.parse(node).name
   console.log(`Extacting ${fileName} to ${knodePath("bin")}`)
-  // node-16.17.1-win-x64
+  // node-18.12.1-win-x64
   await zip.extract(fileName, knodePath("bin"))
   await zip.close()
 } else {

@@ -10,7 +10,7 @@
     "install-kit": "install.js"
   },
   "engines": {
-    "node": ">=16.17.1"
+    "node": ">=18.12.1"
   },
   "description": "",
   "main": "index.js",
@@ -45,6 +45,6 @@
     ]
   },
   "volta": {
-    "node": "16.17.1"
+    "node": "18.12.1"
   }
 }
