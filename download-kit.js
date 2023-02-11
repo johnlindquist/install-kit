@@ -6,10 +6,6 @@ let home = createPathResolver(os.homedir())
 process.env.KIT ||= home(".kit")
 let kitTargetPath = createPathResolver(process.env.KIT)
 
-console.log(`\n\n Home detected as ${home()}`)
-console.log(`KIT detected as ${process.env.KIT}`)
-console.log(`\n kitTargetPath: ${kitTargetPath()}`)
-
 // cleanup any existing .kit directory
 if (await isDir(kitTargetPath())) {
   await rm(kitTargetPath(), {

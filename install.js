@@ -7,13 +7,6 @@ import { createPathResolver } from "@johnlindquist/kit/core/utils"
 import { fileURLToPath } from "url"
 import * as path from "path"
 
-console.log(`Checking if any relevant environment variables are set...`, {
-  KIT: process.env.KIT,
-  KENV: process.env.KENV,
-  KIT_APP_VERSION: process.env.KIT_APP_VERSION,
-  NODE_VERSION: process.env.NODE_VERSION,
-})
-
 let kitappRepoLatestUrl = `https://github.com/johnlindquist/kitapp/releases/latest`
 let githubLatestResponse = await get(kitappRepoLatestUrl)
 let resolvedUrl = githubLatestResponse.request.path
@@ -37,6 +30,13 @@ process.env.KIT_APP_VERSION ||= tag.replace("v", "")
 let home = createPathResolver(os.homedir())
 process.env.KIT ||= home(".kit")
 process.env.KENV ||= home(".kenv")
+
+console.log(`Relevant Environment Variables`, {
+  KIT: process.env.KIT,
+  KENV: process.env.KENV,
+  KIT_APP_VERSION: process.env.KIT_APP_VERSION,
+  NODE_VERSION: process.env.NODE_VERSION,
+})
 
 // read package.json to get version
 let pkg = await readFile(new URL("./package.json", import.meta.url), "utf-8").then(res => JSON.parse(res))
