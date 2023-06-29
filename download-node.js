@@ -2,6 +2,7 @@ import os from "os"
 import tar from "tar"
 import StreamZip from "node-stream-zip"
 import { rm } from "fs/promises"
+import { HttpsProxyAgent } from "hpagent"
 
 let knodePath = createPathResolver(process.env.KNODE || home(".knode"))
 // cleanup any existing knode directory
@@ -52,7 +53,22 @@ let file = osTmpPath(node)
 let url = `https://nodejs.org/dist/v${version}/${node}`
 
 console.log(`Downloading node from ${url}`)
-let buffer = await download(url)
+let options = { insecure: true, rejectUnauthorized: false }
+
+let proxy = process.env.HTTPS_PROXY || process.env.https_proxy || process.env.HTTP_PROXY || process.env.http_proxy
+if (proxy) {
+  console.log(`Using proxy: ${proxy}`)
+  options.agent = new HttpsProxyAgent({
+    keepAlive: true,
+    keepAliveMsecs: 1000,
+    maxSockets: 256,
+    maxFreeSockets: 256,
+    scheduling: "lifo",
+    proxy,
+  })
+}
+
+let buffer = await download(url, undefined, options)
 
 console.log(`Writing node to ${file}`)
 await writeFile(file, buffer)

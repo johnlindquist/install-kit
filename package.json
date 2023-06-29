@@ -31,6 +31,7 @@
   "dependencies": {
     "@johnlindquist/kit": "*",
     "download": "^8.0.0",
+    "hpagent": "^1.2.0",
     "node-stream-zip": "^1.15.0",
     "tar": "^6.1.13"
   },
