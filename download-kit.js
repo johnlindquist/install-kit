@@ -1,6 +1,7 @@
 import os from "os"
 import tar from "tar"
 import { rm } from "fs/promises"
+import { HttpsProxyAgent } from "hpagent"
 
 let home = createPathResolver(os.homedir())
 process.env.KIT ||= home(".kit")
