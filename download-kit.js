@@ -40,7 +40,22 @@ let file = osTmpPath(kitSDK)
 let url = `https://github.com/johnlindquist/kitapp/releases/latest/download/${kitSDK}`
 
 console.log(`Downloading Kit SDK from ${url}`)
-let buffer = await download(url)
+let options = { insecure: true, rejectUnauthorized: false }
+
+let proxy = process.env.HTTPS_PROXY || process.env.https_proxy || process.env.HTTP_PROXY || process.env.http_proxy
+if (proxy) {
+  console.log(`Using proxy: ${proxy}`)
+  options.agent = new HttpsProxyAgent({
+    keepAlive: true,
+    keepAliveMsecs: 1000,
+    maxSockets: 256,
+    maxFreeSockets: 256,
+    scheduling: "lifo",
+    proxy,
+  })
+}
+
+let buffer = await download(url, undefined, options)
 
 console.log(`Writing kit to ${file}`)
 await writeFile(file, buffer)
