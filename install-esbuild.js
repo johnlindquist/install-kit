@@ -13,7 +13,7 @@ let kenvTargetPath = createPathResolver(process.env.KENV)
 console.log(`Set KIT and KENV to ${kitTargetPath()} and ${kenvTargetPath()}`)
 
 console.log(`\n\n---- Installing esbuild into ${kitTargetPath()} ----`)
-await kit.exec(`npm i esbuild --save-exact --prefix ${kitTargetPath()}`, {
+await kit.exec(`${knodePath("bin", "npm")} i esbuild --save-exact --prefix ${kitTargetPath()}`, {
   stdio: "inherit",
   cwd: kitTargetPath(),
   env: {

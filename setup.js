@@ -13,17 +13,26 @@ console.log(`Set KIT and KENV to ${kitPath()} and ${kenvPath()}`)
 console.log(`Link ${kitPath()} to ${kenvPath()}`)
 await kit(kitPath("setup", "setup.js"))
 
-console.log(`\n\n---- Write Settings ----`)
-console.log({
-  version: process.env.KIT_APP_VERSION,
+await kit.exec(`${knodePath("bin", "npm")} i ${kitPath()} --save-exact --prefix ${kitTargetPath()}`, {
+  stdio: "inherit",
+  cwd: kenvPath(),
+  env: {
+    ...process.env,
+    PATH: `${knodePath("bin")}${path.delimiter}${process.env.PATH}`,
+  },
 })
-await kit.writeJson(kitPath("db", "app.json"), {
-  version: process.env.KIT_APP_VERSION,
-  autoUpdate: true,
-  tray: true,
-  openAtLogin: true,
-  appearance: "auto",
-})
+
+// console.log(`\n\n---- Write Settings ----`)
+// console.log({
+//   version: process.env.KIT_APP_VERSION,
+// })
+// await kit.writeJson(kitPath("db", "app.json"), {
+//   version: process.env.KIT_APP_VERSION,
+//   autoUpdate: true,
+//   tray: true,
+//   openAtLogin: true,
+//   appearance: "auto",
+// })
 
 console.log(`\n\n---- Examples ----`)
 try {
