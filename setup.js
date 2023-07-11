@@ -1,4 +1,5 @@
 import os from "os"
+import { stat } from "fs/promises"
 
 let home = createPathResolver(os.homedir())
 
@@ -7,11 +8,28 @@ process.env.KENV = process.argv?.["--kenvPath"] || home(".kenv")
 
 let kitPath = createPathResolver(process.env.KIT)
 let kenvPath = createPathResolver(process.env.KENV)
+let isFile = async filePath => {
+  let exists = false
+  try {
+    exists = (await stat(filePath)).isFile()
+  } catch (e) {
+    exists = false
+  }
+
+  return exists
+}
 
 console.log(`Set KIT and KENV to ${kitPath()} and ${kenvPath()}`)
 
+// Check if kenvPath(".env") exists and if not, create it using setup/create-env.js
+let envExists = await isFile(kenvPath(".env"))
+if (!envExists) {
+  console.log(`\n\n---- Creating ${kenvPath(".env")} ----`)
+  await kit(kenvPath("setup", "create-env.js"))
+}
+
 console.log(`Link ${kitPath()} to ${kenvPath()}`)
-await kit(kitPath("setup", "setup.js"))
+await kit(kitPath("setup", "chmod-helpers.js"))
 
 await kit.exec(`${knodePath("bin", "npm")} i ${kitPath()} --save-exact --prefix ${kenvPath()}`, {
   stdio: "inherit",
