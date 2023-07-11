@@ -4,7 +4,7 @@ import { rm } from "fs/promises"
 import { HttpsProxyAgent } from "hpagent"
 
 let home = createPathResolver(os.homedir())
-process.env.KIT ||= home(".kit")
+process.env.KIT = process.argv?.["--kitPath"] || home(".kit")
 let kitTargetPath = createPathResolver(process.env.KIT)
 
 // cleanup any existing .kit directory

@@ -4,8 +4,8 @@ let home = createPathResolver(os.homedir())
 
 console.log(`\n\n Home detected as ${home()}`)
 
-process.env.KIT ||= home(".kit")
-process.env.KENV ||= home(".kenv")
+process.env.KIT = process.argv?.["--kitPath"] || home(".kit")
+process.env.KENV = process.argv?.["--kenvPath"] || home(".kenv")
 
 let kitTargetPath = createPathResolver(process.env.KIT)
 let kenvTargetPath = createPathResolver(process.env.KENV)

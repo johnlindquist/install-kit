@@ -29,7 +29,7 @@ process.env.NODE_VERSION ||= info.node
 process.env.KIT_APP_VERSION ||= tag.replace("v", "")
 let home = createPathResolver(os.homedir())
 process.env.KIT ||= home(".kit")
-process.env.KENV ||= home(".kenv")
+process.env.KENV = process.argv?.["--kenvPath"] || home(".kenv")
 
 console.log(`Relevant Environment Variables`, {
   KIT: process.env.KIT,

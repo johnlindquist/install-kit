@@ -2,8 +2,8 @@ import os from "os"
 
 let home = createPathResolver(os.homedir())
 
-process.env.KIT ||= home(".kit")
-process.env.KENV ||= home(".kenv")
+process.env.KIT = process.argv?.["--kitPath"] || home(".kit")
+process.env.KENV = process.argv?.["--kenvPath"] || home(".kenv")
 
 let kitPath = createPathResolver(process.env.KIT)
 let kenvPath = createPathResolver(process.env.KENV)
