@@ -13,7 +13,7 @@ console.log(`Set KIT and KENV to ${kitPath()} and ${kenvPath()}`)
 console.log(`Link ${kitPath()} to ${kenvPath()}`)
 await kit(kitPath("setup", "setup.js"))
 
-await kit.exec(`${knodePath("bin", "npm")} i ${kitPath()} --save-exact --prefix ${kitTargetPath()}`, {
+await kit.exec(`${knodePath("bin", "npm")} i ${kitPath()} --save-exact --prefix ${kenvPath()}`, {
   stdio: "inherit",
   cwd: kenvPath(),
   env: {
