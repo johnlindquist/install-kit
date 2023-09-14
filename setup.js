@@ -25,7 +25,7 @@ console.log(`Set KIT and KENV to ${kitPath()} and ${kenvPath()}`)
 let envExists = await isFile(kenvPath(".env"))
 if (!envExists) {
   console.log(`\n\n---- Creating ${kenvPath(".env")} ----`)
-  await kit(kenvPath("setup", "create-env.js"))
+  await kit(kitPath("setup", "create-env.js"));
 }
 
 console.log(`Link ${kitPath()} to ${kenvPath()}`)
